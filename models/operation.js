@@ -39,11 +39,12 @@ const operationJoiSchema = Joi.object({
   date: Joi.date().required(),
   category: Joi.string().required(),
   description: Joi.string(),
-  type: Joi.string().valid("profit", "consumption"),
+  type: Joi.string().valid("credit", "debit"),
   sum: Joi.number()
 });
 
 const Operation = model('Operation', operationSchema)
+
 module.exports = {
   Operation,
   operationJoiSchema
