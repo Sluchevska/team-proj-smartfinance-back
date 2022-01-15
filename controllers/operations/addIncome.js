@@ -1,10 +1,10 @@
 const { Operation } = require("../../models");
 
-const addExpanceTransaction = async (req, res) => {
+const addIncome = async (req, res) => {
   const { date, category, description, type, sum, day, month, year } =
     req.query;
 
-  const newExpence = {
+  const newIncome = {
     date,
     category,
     description,
@@ -15,7 +15,7 @@ const addExpanceTransaction = async (req, res) => {
     year,
   };
 
-  const result = await Operation.create(newExpence);
+  const result = await Operation.create(newIncome);
 
   res.status(200).json({
     status: "success",
@@ -26,4 +26,4 @@ const addExpanceTransaction = async (req, res) => {
   });
 };
 
-module.exports = addExpanceTransaction;
+module.exports = addIncome;
