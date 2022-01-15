@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { operationsControllers: ctrl } = require("../../controllers");
+const { transactionControllers: ctrl } = require("../../controllers");
 
 // Добавление расхода
 // 1. для добавления расхода должна происходить проверка, аутентифицирован и авторизирован ли пользователь
@@ -19,8 +19,10 @@ const { operationsControllers: ctrl } = require("../../controllers");
 //
 //
 
-router.post("/addexpance", ctrl.addExpanceTransaction);
+router.post("/transaction/addexpance", ctrl.addExpanceTransaction);
 
-router.post("/addincome", ctrl.addIncomeTransaction);
+router.post("/transaction/addincome", ctrl.addIncomeTransaction);
+
+router.delete("/transaction/:transactionId", ctrl.removeTransaction);
 
 module.exports = router;

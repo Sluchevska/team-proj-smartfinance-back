@@ -1,9 +1,9 @@
-const operations = require('./operations');
-const users = require('./users');
-const operationsControllers = require('./operationsControllers')
+const operations = require("./operations");
+const users = require("./users");
+const transactionControllers = require("./transactionControllers");
 
 module.exports = {
   operations,
   users,
-  operationsControllers
+  transactionControllers,
 };

@@ -15,7 +15,7 @@ const addIncomeTransaction = async (req, res) => {
     year,
   };
 
-  const result = Operation.create(newIncome);
+  const result = await Operation.create(newIncome);
 
   res.status(200).json({
     status: "success",
