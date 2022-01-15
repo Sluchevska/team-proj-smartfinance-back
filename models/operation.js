@@ -35,7 +35,7 @@ const operationSchema = new Schema({
   }
 });
 
-const oparationJoiSchema = Joi.object({
+const operationJoiSchema = Joi.object({
   date: Joi.date().required(),
   category: Joi.string().required(),
   description: Joi.string(),
@@ -46,5 +46,5 @@ const oparationJoiSchema = Joi.object({
 const Operation = model('Operation', operationSchema)
 module.exports = {
   Operation,
-  oparationJoiSchema
+  operationJoiSchema
 }

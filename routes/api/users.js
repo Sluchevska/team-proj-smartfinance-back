@@ -1,7 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 
-const ctrlWrapper = require('../../middlewares/ctrlWrapper')
+const { ctrlWrapper } = require('../../middlewares')
 const { upload } = require("../../middlewares/upload");
 
 const {

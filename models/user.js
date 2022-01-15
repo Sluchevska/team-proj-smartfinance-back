@@ -38,7 +38,7 @@ userSchema.pre("save", async function () {
     this.password = await bcrypt.hash(this.password, 10);
   }
 });
-const User = model("User", userSchema);
+const User = model("user", userSchema);
 
 const registrationSchema = Joi.object({
     email: Joi.string()
