@@ -1,3 +1,5 @@
+const { registrationSchema, loginSchema, verificationSchema } = require('../models/user')
+
 const validation = (scheme) => {
   return (req, _, next) => {
     const { error } = scheme.validate(req.body);
@@ -13,4 +15,14 @@ const validation = (scheme) => {
   };
 };
 
-module.exports = validation;
+const registrationValidator = validation(registrationSchema);
+const loginValidator = validation(loginSchema);
+const verificationValidator = validation(verificationSchema);
+
+module.exports = {
+  validation,
+  registrationValidator,
+  loginValidator,
+  verificationValidator,
+};
+
