@@ -1,8 +1,8 @@
 const express = require("express");
 const router = new express.Router();
 
+const ctrlWrapper = require('../../middlewares/ctrlWrapper')
 const { upload } = require("../../middlewares/upload");
-// const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
 
 const {
   userRegistration,
@@ -22,22 +22,22 @@ const {
 } = require("../../middlewares/validation");
 const { auth } = require("../../middlewares/auth");
 
-router.post("/signup", registrationValidator, userRegistration);
-router.post("/login", loginValidator, userLogin);
-router.get("/current", auth, userGetCurrent);
-router.get("/logout", auth, userLogOut);
-router.delete("/:userId", auth, userDelete);
+router.post("/signup", registrationValidator, ctrlWrapper(userRegistration));
+router.post("/login", loginValidator, ctrlWrapper(userLogin));
+router.get("/current", auth, ctrlWrapper(userGetCurrent));
+router.get("/logout", auth, ctrlWrapper(userLogOut));
+router.delete("/:userId", auth, ctrlWrapper(userDelete));
 router.patch(
   "/avatars",
   auth,
   upload.single("avatar"),
-  userAvatar
+  ctrlWrapper(userAvatar)
 );
-router.get("/verify/:verificationToken", userVerification);
+router.get("/verify/:verificationToken", ctrlWrapper(userVerification));
 router.post(
   "/verify",
   verificationValidator,
-  userSendSecondEmail
+  ctrlWrapper(userSendSecondEmail)
 );
 
 module.exports = router;
