@@ -3,7 +3,15 @@ const Joi = require('joi');
 
 const operationSchema = new Schema({
   date: {
-        type: Date
+    day: {
+      type: Number,
+    },
+    month: {
+      type: Number,
+    },
+    year: {
+      type: Number,
+    },
       },
   category: {
     type: String,
@@ -19,15 +27,6 @@ const operationSchema = new Schema({
   sum: {
     type: Number,
     required: true,
-  },
-  day: {
-    type: Number,
-  },
-  month: {
-    type: Number,
-  },
-  year: {
-    type: Number,
   },
   userId:{
     type: Schema.Types.ObjectId,
