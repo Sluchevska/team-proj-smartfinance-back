@@ -3,7 +3,18 @@ const Joi = require('joi');
 
 const operationSchema = new Schema({
   date: {
-        type: Date
+    day: {
+      type: Number,
+      required: true,
+    },
+    month: {
+      type: Number,
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
       },
   category: {
     type: String,
@@ -20,30 +31,22 @@ const operationSchema = new Schema({
     type: Number,
     required: true,
   },
-  day: {
-    type: Number,
-  },
-  month: {
-    type: Number,
-  },
-  year: {
-    type: Number,
-  },
-  userId:{
+  owner:{
     type: Schema.Types.ObjectId,
     ref: 'user',
   }
 });
 
 const operationJoiSchema = Joi.object({
-  date: Joi.date().required(),
+  date: Joi.object().required(),
   category: Joi.string().required(),
   description: Joi.string(),
-  type: Joi.string().valid("profit", "consumption"),
+  type: Joi.string().valid("income", "expences"),
   sum: Joi.number()
 });
 
 const Operation = model('Operation', operationSchema)
+
 module.exports = {
   Operation,
   operationJoiSchema

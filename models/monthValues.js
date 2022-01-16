@@ -7,16 +7,16 @@ const monthValuesSchema = new Schema({
   year: {
     type: Number,
   },
-  profit: {
+  income: {
     type: Number,
   },
-  comsumprion: {
+  expences: {
     type: Number,
   },
   total: {
     type: Number,
   },
-  userId:{
+  owner:{
     type: Schema.Types.ObjectId,
     ref: 'user',
   }
