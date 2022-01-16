@@ -5,12 +5,15 @@ const operationSchema = new Schema({
   date: {
     day: {
       type: Number,
+      required: true,
     },
     month: {
       type: Number,
+      required: true,
     },
     year: {
       type: Number,
+      required: true,
     },
       },
   category: {
