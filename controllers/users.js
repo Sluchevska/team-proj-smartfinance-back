@@ -1,4 +1,4 @@
-const { Unauthorized } = require("http-errors");
+const { Unauthorized } = require('http-errors');
 const {
   registration,
   login,
@@ -9,16 +9,16 @@ const {
   updateAvatar,
   verificationByToken,
   userSendEmailAgain,
-} = require("../services/users");
+} = require('../services/users');
 
 const userRegistration = async (req, res) => {
   const { email, password } = req.body;
   await registration(email, password);
   res.status(201).json({
-    status: "Created",
+    status: 'Created',
     code: 201,
     data: {
-      user: { email},
+      user: { email },
     },
   });
 };
@@ -28,7 +28,7 @@ const userLogin = async (req, res) => {
   const token = await login(email, password);
   await addToken(email, token);
   res.status(200).json({
-    status: "Ok",
+    status: 'Ok',
     code: 200,
     data: {
       user: { email, token },
@@ -40,25 +40,25 @@ const userDelete = async (req, res) => {
   const { userId } = req.params;
   const { id } = req.user;
   if (userId !== id) {
-    throw new Unauthorized("User is not authorized");
+    throw new Unauthorized('User is not authorized');
   }
   const result = await deleteUser(userId);
   res.json({
-    status: "success",
+    status: 'success',
     code: 200,
-    message: "User deleted",
+    message: 'User deleted',
   });
 };
 
 const userGetCurrent = async (req, res) => {
   const { id } = req.user;
   const user = await getCurrent(id);
-  const { email} = user;
+  const { email } = user;
   res.status(200).json({
-    status: "Ok",
+    status: 'Ok',
     code: 200,
     data: {
-      user: { email},
+      user: { email },
     },
   });
 };
@@ -74,21 +74,21 @@ const userAvatar = async (req, res) => {
   const { id } = req.user;
   const result = await updateAvatar(id, tempUpload, originalname);
   const { avatarURL } = result;
-  res.status(200).json({ status: "Ok", code: 200, data: { avatarURL } });
+  res.status(200).json({ status: 'Ok', code: 200, data: { avatarURL } });
 };
 
 const userVerification = async (req, res) => {
   const { verificationToken } = req.params;
   await verificationByToken(verificationToken);
-  res.status(200).json({ status: "Verification successful" });
+  res.status(200).json({ status: 'Verification successful' });
 };
 const userSendSecondEmail = async (req, res) => {
   const { email } = req.body;
   if (!email) {
-    res.status(400).json({ message: "missing required field email" });
+    res.status(400).json({ message: 'missing required field email' });
   }
   await userSendEmailAgain(email);
-  res.status(200).json({ status: "Verification email sent" });
+  res.status(200).json({ status: 'Verification successful' });
 };
 
 module.exports = {
