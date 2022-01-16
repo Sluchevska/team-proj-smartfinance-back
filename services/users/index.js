@@ -1,12 +1,12 @@
-const registration = require('./registration')
-const login = require('./login')
-const getCurrent = require('./getCurrent')
-const logout = require('./logout')
-const addToken = require('./addToken')
-const deleteUser = require('./deleteUser')
-const updateAvatar = require('./updateAvatar')
-const verificationByToken = require('./verificationByToken')
-const userSendEmailAgain = require('./userSendEmailAgain')
+const {registration} = require('./registration')
+const {login} = require('./login')
+const {getCurrent} = require('./getCurrent')
+const {logout} = require('./logout')
+const {addToken} = require('./addToken')
+const {deleteUser} = require('./deleteUser')
+const {updateAvatar} = require('./updateAvatar')
+const {verificationByToken} = require('./verificationByToken')
+const {userSendEmailAgain} = require('./userSendEmailAgain')
 
 module.exports = {
     registration,

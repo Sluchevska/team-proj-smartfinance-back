@@ -1,6 +1,6 @@
 const { User } = require("../../models/user");
 const { NotFound, BadRequest } = require("http-errors");
-const { sendEmail } = require("../helpers/sendEmail");
+const { sendEmail } = require("../../helpers");
 
 const userSendEmailAgain = async (email) => {
     const user = await User.findOne({ email });
