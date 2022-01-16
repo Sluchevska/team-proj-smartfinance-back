@@ -22,7 +22,7 @@ const {
 } = require("../../middlewares/validation");
 const { auth } = require("../../middlewares/auth");
 
-router.post("/registration", registrationValidator, ctrlWrapper(userRegistration));
+router.post("/register", registrationValidator, ctrlWrapper(userRegistration));
 router.post("/login", loginValidator, ctrlWrapper(userLogin));
 router.get("/current", auth, ctrlWrapper(userGetCurrent));
 router.get("/logout", auth, ctrlWrapper(userLogOut));
@@ -30,5 +30,7 @@ router.delete("/:userId", auth, ctrlWrapper(userDelete));
 router.patch("/avatars", auth, upload.single("avatar"), ctrlWrapper(userAvatar));
 router.get("/verify/:verificationToken", ctrlWrapper(userVerification));
 router.post("/verify", verificationValidator, ctrlWrapper(userSendSecondEmail));
+// router.use('/api-docs', swaggerUi.serve);
+// router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 module.exports = router;

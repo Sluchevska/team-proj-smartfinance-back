@@ -31,6 +31,10 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Verify token is required"],
   },
+  balance: {
+    type: Number,
+    default: 0
+  }
 });
 
 userSchema.pre("save", async function () {
