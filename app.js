@@ -2,6 +2,8 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const operationsRouter = require('./routes/api/operations');
 const usersRouter = require('./routes/api/users');
@@ -16,6 +18,7 @@ app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/operations', operationsRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.use((req, res) => {
