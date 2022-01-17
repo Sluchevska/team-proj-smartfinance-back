@@ -59,7 +59,6 @@ const getAllInfo = async (req, res) => {
   let DescriptionExpenses = null;
   await Promise.all(arrPromisesDescriptionExpenses).then((data) => (DescriptionExpenses = data));
 
-  // ----------------------
   const arrPromisesDescriptionIncome = categoryIncome.map(async (category) => {
     const descriptionArrey = await Operation.find({ ...filter, category }).distinct('description');
 
@@ -80,28 +79,17 @@ const getAllInfo = async (req, res) => {
   let DescriptionIncome = null;
   await Promise.all(arrPromisesDescriptionIncome).then((data) => (DescriptionIncome = data));
 
-  // -------------------------
+  const data = { totalIncome, totalExpenses, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses };
 
-  const data = { totalIncome, totalExpenses, CategoryExpenses, CategoryIncome, DescriptionExpenses, DescriptionIncome };
-
-  res.json(data);
+  res.status(200).json({
+    status: 'Ok',
+    code: 200,
+    data,
+  });
 };
 
 module.exports = getAllInfo;
 
-// Должен отдать в ответе:
-// 1. Общий доход и расход за месяц
-// 2. Доход и расход за месяц по каждой категории
-// 3. Подробный отчет по выбранной категории для графика (description - описание какой товар)
-
-//  доход / income
-//  расход / expenses
-
-// income by category - масив в котором {name:"Продукты", total:1500}
-//
-// expenses by category - -//-
-
-// ------------
 // totalIncome
 // totalExpenses
 
