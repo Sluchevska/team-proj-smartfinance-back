@@ -6,7 +6,7 @@ const sendEmail = async (mail, token) => {
   const email = {
     to: mail,
     from: 'alala1000500@gmail.com',
-    subject: 'Регистрация в сервисе WiseMoney',
+    subject: 'Регистрация в сервисе Kapusta',
     html: `<a target="_blank" href="https://team-proj-smartfinance-back.herokuapp.com/api/users/verify/${token}">Подтвердить email</a>`,
   };
   try {
