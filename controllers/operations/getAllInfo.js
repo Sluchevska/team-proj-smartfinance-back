@@ -1,12 +1,12 @@
 const { Operation } = require('../../models');
 
 const getAllInfo = async (req, res) => {
-  // const { _id } = req.user;
+  const { _id } = req.user;
   const { month, year } = req.query;
 
-  const filter = { month, year };
+  const filter = { month, year, owner: _id };
 
-  const result = await Operation.find();
+  const result = await Operation.find(filter);
 
   res.json(result);
 };
