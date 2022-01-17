@@ -348,14 +348,14 @@
             "in": "query",
             "name": "year",
             "required": true,
-            "type": "string",
+            "type": "integer",
             "description": "Operation year"
           },
           {
             "in": "query",
             "name": "month",
             "required": true,
-            "type": "string",
+            "type": "integer",
             "description": "Operation month"
           }
         ],
