@@ -5,7 +5,7 @@ const { version } = require("joi");
 const operationSchema = Schema(
   {
     date: {
-      type: Date,
+      type: String,
     },
     category: {
       type: String,
@@ -40,7 +40,7 @@ const operationSchema = Schema(
 );
 
 const oparationJoiSchema = Joi.object({
-  date: Joi.date().required(),
+  date: Joi.string().required(),
   category: Joi.string().required(),
   description: Joi.string(),
   type: Joi.string().valid("profit", "consumption"),

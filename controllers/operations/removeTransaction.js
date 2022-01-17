@@ -3,11 +3,7 @@ const { Operation } = require("../../models");
 const removeTransaction = async (req, res) => {
   const { transactionId } = req.params;
 
-  console.log(transactionId);
-
   const result = await Operation.findByIdAndRemove(transactionId);
-
-  console.log(result);
 
   if (!result) {
     res.status(400).json({
