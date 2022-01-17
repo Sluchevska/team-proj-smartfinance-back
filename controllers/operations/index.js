@@ -1,9 +1,11 @@
 const getAllInfo = require("./getAllInfo");
-const removeTransaction = require("./removeTransaction");
+const submitBalance = require("./submitBalance");
 const addTransaction = require("./addTransaction");
+const removeTransaction = require("./removeTransaction");
 
 module.exports = {
   getAllInfo,
-  removeTransaction,
+  submitBalance,
   addTransaction,
+  removeTransaction,
 };

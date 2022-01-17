@@ -1,11 +1,14 @@
+const { User } = require("../../models");
 const { Operation } = require("../../models");
 
 const removeTransaction = async (req, res) => {
   const { transactionId } = req.params;
+  // const { id } = req.user;
 
-  const result = await Operation.findByIdAndRemove(transactionId);
+  const removedTransaction = await Operation.findByIdAndRemove(transactionId);
+  // const { balance } = await User.findById(id);
 
-  if (!result) {
+  if (!removedTransaction) {
     res.status(400).json({
       status: "error",
       code: 400,
@@ -15,11 +18,24 @@ const removeTransaction = async (req, res) => {
     return;
   }
 
+  const balance = 888000;
+  let newBalance;
+
+  switch (removedTransaction.type) {
+    case "income":
+      newBalance = balance - removedTransaction.sum;
+      break;
+
+    case "expenses":
+      newBalance = balance + removedTransaction.sum;
+  }
+
   res.status(200).json({
     status: "success",
     code: 200,
     data: {
-      result,
+      removedTransaction,
+      newBalance,
     },
   });
 };
