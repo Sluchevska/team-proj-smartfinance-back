@@ -564,7 +564,7 @@
                   },
                   "balance": {
                     "type": "number",
-                    "description": "User's email",
+                    "description": "User's balance",
                     "example": "15000"
                   }
                 }
@@ -678,6 +678,11 @@
                     "example": "61e2ee38deea6c86725e8ca2"
                   }
                 }
+              },
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": "40000"
               }
             }
           }
@@ -761,7 +766,258 @@
           }
         }
       },
-      "GetAllDataMonthAndYearResponse": {}
+      "GetAllDataMonthAndYearResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "totalIncome": {
+                "type": "string",
+                "description": "Total income balance for the specified month and year",
+                "example": 49000
+              },
+              "totalExpenses": {
+                "type": "string",
+                "description": "Total balance of expenses for the specified month and year",
+                "example": 15049
+              },
+              "CategoryIncome": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "Name of category",
+                      "example": "ЗП"
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Total amount for this category",
+                      "example": 35000
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "category": "ЗП",
+                    "total": 35000
+                  },
+                  {
+                    "category": "Доп. доход",
+                    "total": 14000
+                  }
+                ]
+              },
+              "CategoryExpenses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "Name of category",
+                      "example": "Продукты"
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Total amount for this category",
+                      "example": 1650
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "category": "Транспорт",
+                    "total": 0
+                  },
+                  {
+                    "category": "Продукты",
+                    "total": 1650
+                  },
+                  {
+                    "category": "Здоровье",
+                    "total": 0
+                  },
+                  {
+                    "category": "Алкоголь",
+                    "total": 0
+                  },
+                  {
+                    "category": "Развлечения",
+                    "total": 0
+                  },
+                  {
+                    "category": "Всё для дома",
+                    "total": 0
+                  },
+                  {
+                    "category": "Техника",
+                    "total": 13399
+                  },
+                  {
+                    "category": "Коммуналка, связь",
+                    "total": 0
+                  },
+                  {
+                    "category": "Спорт, хоби",
+                    "total": 0
+                  },
+                  {
+                    "category": "Образование",
+                    "total": 0
+                  },
+                  {
+                    "category": "Прочее",
+                    "total": 0
+                  }
+                ]
+              },
+              "DescriptionIncome": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "Name of category",
+                      "example": "Доп. доход"
+                    },
+                    "descriptionData": {
+                      "type": "array",
+                      "description": "Array with descriptions and their sums"
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "category": "ЗП",
+                    "descriptionData": [
+                      {
+                        "description": "зп жены",
+                        "total": 15000
+                      },
+                      {
+                        "description": "моя зп",
+                        "total": 20000
+                      }
+                    ]
+                  },
+                  {
+                    "category": "Доп. доход",
+                    "descriptionData": [
+                      {
+                        "description": "Премия",
+                        "total": 3000
+                      },
+                      {
+                        "description": "Аванс",
+                        "total": 11000
+                      }
+                    ]
+                  }
+                ]
+              },
+              "DescriptionExpenses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "Name of category",
+                      "example": "Продукты"
+                    },
+                    "descriptionData": {
+                      "type": "array",
+                      "description": "Array with descriptions and their sums"
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "category": "Транспорт",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Продукты",
+                    "descriptionData": [
+                      {
+                        "description": "Курица",
+                        "total": 700
+                      },
+                      {
+                        "description": "Пицца",
+                        "total": 150
+                      },
+                      {
+                        "description": "Свинина",
+                        "total": 800
+                      }
+                    ]
+                  },
+                  {
+                    "category": "Здоровье",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Алкоголь",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Развлечения",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Всё для дома",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Техника",
+                    "descriptionData": [
+                      {
+                        "description": "Телефон",
+                        "total": 12999
+                      },
+                      {
+                        "description": "Чехол для телефона",
+                        "total": 400
+                      }
+                    ]
+                  },
+                  {
+                    "category": "Коммуналка, связь",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Спорт, хоби",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Образование",
+                    "descriptionData": []
+                  },
+                  {
+                    "category": "Прочее",
+                    "descriptionData": []
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     },
     "securitySchemes": {
       "Bearer": {
