@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = new express.Router();
 
-const { upload } = require("../../middlewares/upload");
-// const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
+const { ctrlWrapper } = require('../../middlewares');
+const { upload } = require('../../middlewares');
 
 const {
   userRegistration,
@@ -13,31 +13,21 @@ const {
   userAvatar,
   userVerification,
   userSendSecondEmail,
-} = require("../../controllers/users");
+} = require('../../controllers/users');
 
-const {
-  registrationValidator,
-  loginValidator,
-  verificationValidator,
-} = require("../../middlewares/validation");
-const { auth } = require("../../middlewares/auth");
+const { registrationValidator, loginValidator, verificationValidator } = require('../../middlewares/validation');
+const { auth } = require('../../middlewares');
 
-router.post("/signup", registrationValidator, userRegistration);
-router.post("/login", loginValidator, userLogin);
-router.get("/current", auth, userGetCurrent);
-router.get("/logout", auth, userLogOut);
-router.delete("/:userId", auth, userDelete);
-router.patch(
-  "/avatars",
-  auth,
-  upload.single("avatar"),
-  userAvatar
-);
-router.get("/verify/:verificationToken", userVerification);
-router.post(
-  "/verify",
-  verificationValidator,
-  userSendSecondEmail
-);
+router.post('/register', registrationValidator, ctrlWrapper(userRegistration));
+router.post('/login', loginValidator, ctrlWrapper(userLogin));
+router.get('/logout', auth, ctrlWrapper(userLogOut));
+router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
+router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
+
+// не нужные энд-поинты
+router.get('/current', auth, ctrlWrapper(userGetCurrent));
+router.delete('/:userId', auth, ctrlWrapper(userDelete));
+router.patch('/avatars', auth, upload.single('avatar'), ctrlWrapper(userAvatar));
+//
 
 module.exports = router;

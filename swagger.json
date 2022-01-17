@@ -1,0 +1,774 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.0",
+    "title": "Smart finance",
+    "description": "Swagger for team-proj-smartfinance",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "servers": [
+    {
+      "url": "https://team-proj-smartfinance-back.herokuapp.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Endpoints for users"
+    },
+    {
+      "name": "Operations",
+      "description": "Endpoints for operations"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse_409"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User login",
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized / Email or password is wrong",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/logout": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User logout",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/balance": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Add balance on first login",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBalanceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBalanceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/operations": {
+      "post": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Adding user income and expenses",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Operation's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OperationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/operations/{operationId}": {
+      "delete": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Delete operation",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "operationId",
+            "required": true,
+            "type": "string",
+            "description": "Operation ID to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DedleteOperationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/operations?{type}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Getting data on the 6 last months of the current year on income and expenses",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "required": true,
+            "type": "string",
+            "description": "Operation type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDataSixMonthCurrentYearResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/operations/info?{year}&{month}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Getting all data for a specified year and month",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "Operation year"
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "type": "string",
+            "description": "Operation month"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllDataMonthAndYearResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "1q2w3e4r5t"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Created"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "User's id",
+                    "example": "61e341383cdcb3ac59535085"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "User's name",
+                    "example": "user"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RegistrationResponse_409": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User with email user@example.com is already exist"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "1q2w3e4r5t"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "User's id",
+                    "example": "61e341383cdcb3ac59535085"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "User's name",
+                    "example": "user"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "User's token",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTM3YWIyMmY1NTA1OGJhNjUxOWNmNCIsImlhdCI6MTY0MjMwNTQzMn0.dtqdhjB-dVuJzmzfw4y_FlxxfFD7JSBkgyy9e7V"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized_401": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Not authorized"
+          }
+        }
+      },
+      "UserBalanceResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Created"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "User's id",
+                    "example": "61e341383cdcb3ac59535085"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  },
+                  "balance": {
+                    "type": "number",
+                    "description": "User's email",
+                    "example": "15000"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AddBalanceRequest": {
+        "type": "object",
+        "required": [
+          "balance"
+        ],
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 15000
+          }
+        }
+      },
+      "OperationRequest": {
+        "type": "object",
+        "required": [
+          "date",
+          "category",
+          "description",
+          "sum",
+          "type"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Date of operation",
+            "example": "15.02.2020"
+          },
+          "category": {
+            "type": "string",
+            "description": "Expense or income category",
+            "example": "Продукты"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of income or expense",
+            "example": "Молоко"
+          },
+          "sum": {
+            "type": "number",
+            "description": "Operation sum",
+            "example": "50"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of operation",
+            "example": "expenses"
+          }
+        }
+      },
+      "OperationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "ObjektId",
+                    "description": "Operation Id",
+                    "example": "61e3414b3cdcb3ac59535074"
+                  },
+                  "date": {
+                    "type": "object",
+                    "description": "Date of operation",
+                    "example": "15.02.2020"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Expense or income category",
+                    "example": "Продукты"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of income or expense",
+                    "example": "Молоко"
+                  },
+                  "sum": {
+                    "type": "number",
+                    "description": "Operation sum",
+                    "example": "50"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of operation",
+                    "example": "expenses"
+                  },
+                  "owner": {
+                    "type": "ObjektId",
+                    "description": "User _id",
+                    "example": "61e2ee38deea6c86725e8ca2"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DedleteOperationResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Operation deleted"
+          }
+        }
+      },
+      "GetDataSixMonthCurrentYearResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of operation",
+                "example": "income"
+              },
+              "monthlyData": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Month name",
+                      "example": "Ноябрь"
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Monthly balance",
+                      "example": 25000
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "name": "Ноябрь",
+                    "total": 25500
+                  },
+                  {
+                    "name": "Октябрь",
+                    "total": 25500
+                  },
+                  {
+                    "name": "Сентябрь",
+                    "total": 25500
+                  },
+                  {
+                    "name": "Август",
+                    "total": 20000
+                  },
+                  {
+                    "name": "Июль",
+                    "total": 20000
+                  },
+                  {
+                    "name": "Июнь",
+                    "total": 18000
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "GetAllDataMonthAndYearResponse": {}
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
