@@ -5,7 +5,15 @@ const addTransaction = async (req, res) => {
   const { date, category, description, type, sum, owner = "me" } = req.body;
   // const { id } = req.user;
 
-  const newTransaction = { date, category, description, sum, type };
+  const [day, month, year] = date.split(".");
+
+  const newTransaction = {
+    date: { day, month, year },
+    category,
+    description,
+    sum,
+    type,
+  };
 
   const result = await Operation.create(newTransaction);
   // const { balance = 1000 } = await User.findById(id);
@@ -30,11 +38,7 @@ const addTransaction = async (req, res) => {
     code: 201,
     data: {
       transaction: {
-        date: result.date,
-        stringDate: `${result.date.day}.${result.date.month}.${result.date.year}`,
-        day: `${result.date.day}`,
-        month: `${result.date.month}`,
-        year: `${result.date.year}`,
+        date,
         category,
         description,
         sum,
