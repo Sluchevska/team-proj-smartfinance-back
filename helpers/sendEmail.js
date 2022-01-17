@@ -11,7 +11,6 @@ const sendEmail = async (mail, token) => {
   };
   try {
     await sgMail.send(email);
-    console.log('Email send success');
     return true;
   } catch (error) {
     throw error;
