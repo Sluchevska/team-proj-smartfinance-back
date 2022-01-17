@@ -2,7 +2,7 @@ const { User } = require("../../models");
 const { Operation } = require("../../models");
 
 const addTransaction = async (req, res) => {
-  const { date, category, description, type, sum, owner = "me" } = req.body;
+  const { date, category, description, type, sum } = req.body;
   const { id } = req.user;
 
   const [day, month, year] = date.split(".");
@@ -15,18 +15,18 @@ const addTransaction = async (req, res) => {
     type,
   };
 
-  await Operation.create(transaction);
-  const { balance } = await User.findById(id);
+  const { owner } = await Operation.create({ ...transaction, owner: id });
+  const { balance: initialBalance } = await User.findById(id);
 
   let newBalance;
 
   switch (type) {
     case "income":
-      newBalance = balance + sum;
+      newBalance = initialBalance + sum;
       break;
 
     case "expenses":
-      newBalance = balance - sum;
+      newBalance = initialBalance - sum;
       break;
 
     default:
@@ -45,7 +45,7 @@ const addTransaction = async (req, res) => {
         sum,
         type,
         owner,
-        newBalance,
+        balance: newBalance,
       },
     },
   });
