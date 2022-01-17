@@ -3,7 +3,9 @@ const { Operation } = require("../../models");
 
 const addTransaction = async (req, res) => {
   const { date, category, description, type, sum, owner = "me" } = req.body;
-  // const { id } = req.user;
+  const { id } = req.user;
+
+  console.log(id);
 
   const [day, month, year] = date.split(".");
 
