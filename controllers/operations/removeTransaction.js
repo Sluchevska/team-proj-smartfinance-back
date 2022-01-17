@@ -3,10 +3,10 @@ const { Operation } = require("../../models");
 
 const removeTransaction = async (req, res) => {
   const { transactionId } = req.params;
-  // const { id } = req.user;
+  const { id } = req.user;
 
   const removedTransaction = await Operation.findByIdAndRemove(transactionId);
-  // const { balance } = await User.findById(id);
+  const { balance } = await User.findById(id);
 
   if (!removedTransaction) {
     res.status(400).json({
@@ -18,7 +18,6 @@ const removeTransaction = async (req, res) => {
     return;
   }
 
-  const balance = 888000;
   let newBalance;
 
   switch (removedTransaction.type) {
@@ -28,10 +27,15 @@ const removeTransaction = async (req, res) => {
 
     case "expenses":
       newBalance = balance + removedTransaction.sum;
+      break;
+
+    default:
   }
 
+  await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true });
+
   res.status(200).json({
-    status: "success",
+    status: "Transaction removed",
     code: 200,
     data: {
       removedTransaction,

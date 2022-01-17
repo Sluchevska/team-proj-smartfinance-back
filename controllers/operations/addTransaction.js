@@ -5,11 +5,9 @@ const addTransaction = async (req, res) => {
   const { date, category, description, type, sum, owner = "me" } = req.body;
   const { id } = req.user;
 
-  console.log(id);
-
   const [day, month, year] = date.split(".");
 
-  const newTransaction = {
+  const transaction = {
     date: { day, month, year },
     category,
     description,
@@ -17,10 +15,9 @@ const addTransaction = async (req, res) => {
     type,
   };
 
-  const result = await Operation.create(newTransaction);
-  // const { balance = 1000 } = await User.findById(id);
+  await Operation.create(transaction);
+  const { balance } = await User.findById(id);
 
-  const balance = 110000;
   let newBalance;
 
   switch (type) {
@@ -34,6 +31,8 @@ const addTransaction = async (req, res) => {
 
     default:
   }
+
+  await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true });
 
   res.status(201).json({
     status: "success",
