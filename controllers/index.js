@@ -1,7 +1,7 @@
-const operations = require('./operations');
-const users = require('./users');
+const operations = require("./operations");
+const users = require("./users");
 
 module.exports = {
-  operations,
   users,
+  operations,
 };
