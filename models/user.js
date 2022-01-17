@@ -45,17 +45,17 @@ userSchema.pre('save', async function () {
     this.password = await bcrypt.hash(this.password, 10);
   }
 });
+
 const User = model('User', userSchema);
 
 const registrationSchema = Joi.object({
+  name: Joi.string().required(),
   email: Joi.string()
     .email({
       minDomainSegments: 2,
     })
     .required(),
   password: Joi.string().min(5).max(15).required(),
-  token: Joi.string(),
-  avatarURL: Joi.string(),
 });
 
 const loginSchema = Joi.object({

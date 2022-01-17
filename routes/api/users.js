@@ -26,7 +26,5 @@ router.delete('/:userId', auth, ctrlWrapper(userDelete));
 router.patch('/avatars', auth, upload.single('avatar'), ctrlWrapper(userAvatar));
 router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
 router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
-// router.use('/api-docs', swaggerUi.serve);
-// router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 module.exports = router;
