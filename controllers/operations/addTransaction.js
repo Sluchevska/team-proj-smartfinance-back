@@ -2,12 +2,12 @@ const { User } = require("../../models");
 const { Operation } = require("../../models");
 
 const addTransaction = async (req, res) => {
-  const { date, category, description, type, sum, owner = "me" } = req.body;
-  // const { id } = req.user;
+  const { date, category, description, type, sum } = req.body;
+  const { id } = req.user;
 
   const [day, month, year] = date.split(".");
 
-  const newTransaction = {
+  const transaction = {
     date: { day, month, year },
     category,
     description,
@@ -15,23 +15,24 @@ const addTransaction = async (req, res) => {
     type,
   };
 
-  const result = await Operation.create(newTransaction);
-  // const { balance = 1000 } = await User.findById(id);
+  const { owner } = await Operation.create({ ...transaction, owner: id });
+  const { balance: initialBalance } = await User.findById(id);
 
-  const balance = 110000;
   let newBalance;
 
   switch (type) {
     case "income":
-      newBalance = balance + sum;
+      newBalance = initialBalance + sum;
       break;
 
     case "expenses":
-      newBalance = balance - sum;
+      newBalance = initialBalance - sum;
       break;
 
     default:
   }
+
+  await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true });
 
   res.status(201).json({
     status: "success",
@@ -44,7 +45,7 @@ const addTransaction = async (req, res) => {
         sum,
         type,
         owner,
-        newBalance,
+        balance: newBalance,
       },
     },
   });
