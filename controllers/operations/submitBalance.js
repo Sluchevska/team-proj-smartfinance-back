@@ -1,7 +1,7 @@
 const { User } = require("../../models");
 
 const submitBalance = async (req, res) => {
-  const { firstBalance } = req.params;
+  const { balance: initialBalance } = req.body;
   const { id } = req.user;
 
   const { balance } = await User.findById(id);
@@ -10,14 +10,14 @@ const submitBalance = async (req, res) => {
     res.status(406).json({
       status: "Not Acceptable",
       code: 406,
-      data: balance,
+      data: { balance },
     });
     // можно передать какие-то данные для фронта, чтобы модалка подтверждения баланса не рендерелась
   }
 
   const newBalance = await User.findByIdAndUpdate(
     id,
-    { balance: firstBalance },
+    { balance: initialBalance },
     { new: true }
   );
 
