@@ -1,5 +1,5 @@
-const { Schema, model, trusted } = require('mongoose');
-const Joi = require('joi');
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const operationSchema = new Schema(
   {
@@ -8,28 +8,28 @@ const operationSchema = new Schema(
       required: true,
     },
     day: {
-      type: Number,
+      type: String,
       required: true,
     },
     month: {
-      type: Number,
+      type: String,
       required: true,
     },
     year: {
-      type: Number,
+      type: String,
       required: true,
     },
     category: {
       type: String,
-      required: [true, 'category is required'],
+      required: [true, "category is required"],
     },
     description: {
       type: String,
     },
     type: {
       type: String,
-      enum: ['income', 'expenses'],
-      required: [true, 'type is required'],
+      enum: ["income", "expenses"],
+      required: [true, "type is required"],
     },
     sum: {
       type: Number,
@@ -37,7 +37,7 @@ const operationSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
     },
   },
   { versionKey: false, timestamps: true }
@@ -47,11 +47,11 @@ const operationJoiSchema = Joi.object({
   date: Joi.string().required(),
   category: Joi.string().required(),
   description: Joi.string().required(),
-  type: Joi.string().valid('income', 'expences').required(),
+  type: Joi.string().valid("income", "expences").required(),
   sum: Joi.number().required(),
 });
 
-const Operation = model('Operation', operationSchema);
+const Operation = model("Operation", operationSchema);
 
 module.exports = {
   Operation,
