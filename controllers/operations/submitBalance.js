@@ -12,7 +12,8 @@ const submitBalance = async (req, res) => {
       code: 406,
       data: { balance },
     });
-    // можно передать какие-то данные для фронта, чтобы модалка подтверждения баланса не рендерелась
+
+    return;
   }
 
   const newBalance = await User.findByIdAndUpdate(

@@ -6,13 +6,17 @@ const addTransaction = async (req, res) => {
   const { id } = req.user;
 
   const [day, month, year] = date.split(".");
+  console.log(typeof day);
 
   const transaction = {
-    date: { day, month, year },
+    date,
+    day,
+    month,
+    year,
     category,
     description,
-    sum,
     type,
+    sum,
   };
 
   const { owner } = await Operation.create({ ...transaction, owner: id });
@@ -45,8 +49,8 @@ const addTransaction = async (req, res) => {
         sum,
         type,
         owner,
-        balance: newBalance,
       },
+      balance: newBalance,
     },
   });
 };
