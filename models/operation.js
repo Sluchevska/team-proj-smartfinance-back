@@ -41,7 +41,7 @@ const operationJoiSchema = Joi.object({
   date: Joi.object().required(),
   category: Joi.string().required(),
   description: Joi.string(),
-  type: Joi.string().valid("income", "expences"),
+  type: Joi.string().valid("income", "expenses"),
   sum: Joi.number()
 });
 
