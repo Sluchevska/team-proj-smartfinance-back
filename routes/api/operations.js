@@ -8,5 +8,7 @@ router.get("/daytransactions", auth, ctrlWrapper(ctrl.getAllDayTransacthios));
 router.post("/balance", auth, ctrlWrapper(ctrl.submitBalance));
 router.post("/", auth, ctrlWrapper(ctrl.addTransaction));
 router.delete("/:transactionId", auth, ctrlWrapper(ctrl.removeTransaction));
+router.get('/getExpenseByMonth', auth, ctrlWrapper(ctrl.getExpenseByMonth));
+router.get('/', auth, ctrlWrapper(ctrl.getIncomeExpenseByMonth));
 
 module.exports = router;
