@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
-const Joi = require("joi");
-const bcrypt = require("bcryptjs");
+const { Schema, model } = require('mongoose');
+const Joi = require('joi');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema(
   {
@@ -9,11 +9,11 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, 'Password is required'],
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       unique: true,
     },
     token: {
@@ -30,23 +30,23 @@ const userSchema = new Schema(
     },
     verifyToken: {
       type: String,
-      required: [true, "Verify token is required"],
+      required: [true, 'Verify token is required'],
     },
     balance: {
       type: Number,
-      default: null,
+      default: 0,
     },
   },
   { versionKey: false, timestamps: true }
 );
 
-userSchema.pre("save", async function () {
+userSchema.pre('save', async function () {
   if (this.isNew) {
     this.password = await bcrypt.hash(this.password, 10);
   }
 });
 
-const User = model("User", userSchema);
+const User = model('User', userSchema);
 
 const registrationSchema = Joi.object({
   name: Joi.string().required(),
