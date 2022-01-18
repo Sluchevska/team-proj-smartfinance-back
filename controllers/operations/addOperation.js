@@ -1,14 +1,13 @@
 const { User } = require("../../models");
 const { Operation } = require("../../models");
 
-const addTransaction = async (req, res) => {
-  const { date, category, description, type, sum } = req.body;
+const addOperation = async (req, res) => {
+  const { date, category, description, sum, type } = req.body;
   const { id } = req.user;
 
   const [day, month, year] = date.split(".");
-  console.log(typeof day);
 
-  const transaction = {
+  const operation = {
     date,
     day,
     month,
@@ -19,7 +18,10 @@ const addTransaction = async (req, res) => {
     sum,
   };
 
-  const { owner } = await Operation.create({ ...transaction, owner: id });
+  const { _id: operationId, owner } = await Operation.create({
+    ...operation,
+    owner: id,
+  });
   const { balance: initialBalance } = await User.findById(id);
 
   let newBalance;
@@ -39,10 +41,11 @@ const addTransaction = async (req, res) => {
   await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true });
 
   res.status(201).json({
-    status: "success",
+    status: "Ok",
     code: 201,
     data: {
-      transaction: {
+      operation: {
+        _id: operationId,
         date,
         category,
         description,
@@ -55,4 +58,4 @@ const addTransaction = async (req, res) => {
   });
 };
 
-module.exports = addTransaction;
+module.exports = addOperation;
