@@ -1,9 +1,9 @@
 const { Operation } = require('../../models');
 
-const getIncomeByMonth = async (req, res, next) => {
+const getIncomeExpenseByMonth = async (req, res, next) => {
     // const { _id } = req.user
     try {
-        const incomeByMonth = await Operation.aggregate([
+        const incomeExpenseByMonth = await Operation.aggregate([
             { $match: { type: {enum: ["income", "expenses"]}, owner: req.user._id } },
             {
                 $group: {
@@ -23,11 +23,11 @@ const getIncomeByMonth = async (req, res, next) => {
         ]).limit(6);
         
         res.status(200).json({
-            incomeByMonth,
+            incomeExpenseByMonth,
         });
     } catch (error) {
         next(error);
     }
 };
 
-module.exports = getIncomeByMonth;
+module.exports = getIncomeExpenseByMonth;
