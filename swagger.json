@@ -288,6 +288,64 @@
         }
       }
     },
+    "/api/operations/byday?{year}&{month}&{day}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Getting data for a specified day",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "Operation year"
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "type": "string",
+            "description": "Operation month"
+          },
+          {
+            "in": "query",
+            "name": "day",
+            "required": true,
+            "type": "string",
+            "description": "Operation day"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllDataDayResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/operations?{type}": {
       "get": {
         "tags": [
@@ -348,14 +406,14 @@
             "in": "query",
             "name": "year",
             "required": true,
-            "type": "integer",
+            "type": "string",
             "description": "Operation year"
           },
           {
             "in": "query",
             "name": "month",
             "required": true,
-            "type": "integer",
+            "type": "string",
             "description": "Operation month"
           }
         ],
@@ -694,6 +752,157 @@
           "message": {
             "type": "string",
             "example": "Operation deleted"
+          }
+        }
+      },
+      "GetAllDataDayResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "operations": {
+                "type": "object",
+                "properties": {
+                  "income": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "ObjektId",
+                          "description": "Operation Id",
+                          "example": "61e3414b3cdcb3ac59535074"
+                        },
+                        "date": {
+                          "type": "object",
+                          "description": "Date of operation",
+                          "example": "09.02.2020"
+                        },
+                        "category": {
+                          "type": "string",
+                          "description": "Income category",
+                          "example": "ЗП"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of income",
+                          "example": "Моя зп"
+                        },
+                        "sum": {
+                          "type": "number",
+                          "description": "Operation sum",
+                          "example": 20000
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Type of operation",
+                          "example": "income"
+                        },
+                        "owner": {
+                          "type": "ObjektId",
+                          "description": "User _id",
+                          "example": "61e2ee38deea6c86725e8ca2"
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "_id": "61e5ac1e69af32474bd7d5t7",
+                        "date": "09.02.2020",
+                        "category": "Доп. доход",
+                        "description": "Премия",
+                        "type": "income",
+                        "sum": 3000,
+                        "owner": "61e54529bbfd586b17904df4"
+                      },
+                      {
+                        "_id": "61e5ac8869af32474bd7d4l4",
+                        "date": "09.02.2020",
+                        "category": "ЗП",
+                        "description": "зп жены",
+                        "type": "income",
+                        "sum": 15000,
+                        "owner": "61e54529bbfd586b17904df4"
+                      }
+                    ]
+                  },
+                  "expenses": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "ObjektId",
+                          "description": "Operation Id",
+                          "example": "61e3414b3cdcb3ac59535456"
+                        },
+                        "date": {
+                          "type": "object",
+                          "description": "Date of operation",
+                          "example": "17.02.2020"
+                        },
+                        "category": {
+                          "type": "string",
+                          "description": "Expenses category",
+                          "example": "Техника"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of expenses",
+                          "example": "Телефон"
+                        },
+                        "sum": {
+                          "type": "number",
+                          "description": "Operation sum",
+                          "example": 7999
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Type of operation",
+                          "example": "expenses"
+                        },
+                        "owner": {
+                          "type": "ObjektId",
+                          "description": "User _id",
+                          "example": "61e2ee38deea6c86725e8ca2"
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "_id": "61e539b868688c5434596a25",
+                        "date": "17.02.2020",
+                        "category": "Техника",
+                        "description": "Телефон",
+                        "type": "expenses",
+                        "sum": 7999,
+                        "owner": "61e54529bbfd586b179042f1"
+                      },
+                      {
+                        "_id": "61e5456b69af32474bd7d4d8",
+                        "date": "17.02.2020",
+                        "category": "Продукты",
+                        "description": "Свинина",
+                        "type": "expenses",
+                        "sum": 500,
+                        "owner": "61e54529bbfd586b179042f1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       },
