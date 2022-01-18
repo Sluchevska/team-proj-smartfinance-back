@@ -6,6 +6,6 @@ const { operations: ctrl } = require("../../controllers");
 router.get("/info", auth, ctrlWrapper(ctrl.getAllInfo));
 router.get("/daytransactions", auth, ctrlWrapper(ctrl.getAllDayTransacthios));
 router.post("/", auth, ctrlWrapper(ctrl.addTransaction));
-router.delete("/:transactionId", auth, ctrlWrapper(ctrl.removeTransaction));
+router.delete("/:operationId", auth, ctrlWrapper(ctrl.removeOperation));
 
 module.exports = router;
