@@ -7,71 +7,42 @@ const getAllInfo = async (req, res) => {
 
   const filter = { month, year, owner: _id };
 
-  const totalIncome = (await Operation.find({ ...filter, type: 'income' }, { sum: 1, _id: 0 })).reduce(
-    (acc, { sum }) => acc + sum,
-    0
-  );
+  const monthTotal = await Operation.aggregate([
+    { $match: filter },
+    { $group: { _id: { type: '$type' }, total: { $sum: '$sum' } } },
+    { $sort: { _id: -1 } },
+    {
+      $project: { _id: 0, type: '$_id.type', total: '$total' },
+    },
+  ]);
 
-  const totalExpenses = (await Operation.find({ ...filter, type: 'expenses' }, { sum: 1, _id: 0 })).reduce(
-    (acc, { sum }) => acc + sum,
-    0
-  );
+  const CategoryIncome = await Operation.aggregate([
+    { $match: { ...filter, type: 'income' } },
+    { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
+    { $sort: { total: -1 } },
+    {
+      $project: { _id: 0, category: '$_id.category', total: '$total' },
+    },
+  ]);
 
-  const arrPromisesCategoryExpenses = categoryExpenses.map(async (category) => {
-    const total = (await Operation.find({ ...filter, category }, { sum: 1, _id: 0 })).reduce(
-      (acc, { sum }) => acc + sum,
-      0
-    );
-    return { category, total };
-  });
-
-  let CategoryExpenses = null;
-  await Promise.all(arrPromisesCategoryExpenses).then((data) => (CategoryExpenses = data));
-
-  const arrPromisesCategoryIncome = categoryIncome.map(async (category) => {
-    const total = (await Operation.find({ ...filter, category }, { sum: 1, _id: 0 })).reduce(
-      (acc, { sum }) => acc + sum,
-      0
-    );
-    return { category, total };
-  });
-
-  let CategoryIncome = null;
-  await Promise.all(arrPromisesCategoryIncome).then((data) => (CategoryIncome = data));
-
-  const arrPromisesDescriptionExpenses = categoryExpenses.map(async (category) => {
-    const descriptionArrey = await Operation.find({ ...filter, category }).distinct('description');
-
-    const descriptionDataPromises = descriptionArrey.map(async (description) => {
-      const total = (await Operation.find({ ...filter, description }, { sum: 1, _id: 0 })).reduce(
-        (acc, { sum }) => acc + sum,
-        0
-      );
-      return { description, total };
-    });
-
-    let descriptionData = null;
-    await Promise.all(descriptionDataPromises).then((data) => (descriptionData = data));
-
-    return { category, descriptionData };
-  });
-
-  let DescriptionExpenses = null;
-  await Promise.all(arrPromisesDescriptionExpenses).then((data) => (DescriptionExpenses = data));
+  const CategoryExpenses = await Operation.aggregate([
+    { $match: { ...filter, type: 'expenses' } },
+    { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
+    { $sort: { total: -1 } },
+    {
+      $project: { _id: 0, category: '$_id.category', total: '$total' },
+    },
+  ]);
 
   const arrPromisesDescriptionIncome = categoryIncome.map(async (category) => {
-    const descriptionArrey = await Operation.find({ ...filter, category }).distinct('description');
-
-    const descriptionDataPromises = descriptionArrey.map(async (description) => {
-      const total = (await Operation.find({ ...filter, description }, { sum: 1, _id: 0 })).reduce(
-        (acc, { sum }) => acc + sum,
-        0
-      );
-      return { description, total };
-    });
-
-    let descriptionData = null;
-    await Promise.all(descriptionDataPromises).then((data) => (descriptionData = data));
+    const descriptionData = await Operation.aggregate([
+      { $match: { ...filter, category } },
+      { $group: { _id: { description: '$description' }, total: { $sum: '$sum' } } },
+      { $sort: { total: -1 } },
+      {
+        $project: { _id: 0, description: '$_id.description', total: '$total' },
+      },
+    ]);
 
     return { category, descriptionData };
   });
@@ -79,22 +50,27 @@ const getAllInfo = async (req, res) => {
   let DescriptionIncome = null;
   await Promise.all(arrPromisesDescriptionIncome).then((data) => (DescriptionIncome = data));
 
-  const data = { totalIncome, totalExpenses, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses };
+  const arrPromisesDescriptionExpenses = categoryExpenses.map(async (category) => {
+    const descriptionData = await Operation.aggregate([
+      { $match: { ...filter, category } },
+      { $group: { _id: { description: '$description' }, total: { $sum: '$sum' } } },
+      { $sort: { total: -1 } },
+      {
+        $project: { _id: 0, description: '$_id.description', total: '$total' },
+      },
+    ]);
+
+    return { category, descriptionData };
+  });
+
+  let DescriptionExpenses = null;
+  await Promise.all(arrPromisesDescriptionExpenses).then((data) => (DescriptionExpenses = data));
 
   res.status(200).json({
     status: 'Ok',
     code: 200,
-    data,
+    data: { monthTotal, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses },
   });
 };
 
 module.exports = getAllInfo;
-
-// totalIncome
-// totalExpenses
-
-// CategoryIncome
-// CategoryExpenses
-
-// DescriptionIncome
-// DescriptionExpenses
