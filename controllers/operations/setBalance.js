@@ -1,6 +1,6 @@
 const { User } = require("../../models");
 
-const submitBalance = async (req, res) => {
+const setBalance = async (req, res) => {
   const { balance: initialBalance } = req.body;
   const { id, email } = req.user;
 
@@ -39,4 +39,4 @@ const submitBalance = async (req, res) => {
   });
 };
 
-module.exports = submitBalance;
+module.exports = setBalance;
