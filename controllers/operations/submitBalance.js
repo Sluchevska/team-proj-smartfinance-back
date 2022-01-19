@@ -2,7 +2,7 @@ const { User } = require("../../models");
 
 const submitBalance = async (req, res) => {
   const { balance: initialBalance } = req.body;
-  const { id } = req.user;
+  const { id, email } = req.user;
 
   const { balance } = await User.findById(id);
 
@@ -16,16 +16,26 @@ const submitBalance = async (req, res) => {
     return;
   }
 
-  const newBalance = await User.findByIdAndUpdate(
+  const {
+    id: userId,
+    email: userEmail,
+    balance: newBalance,
+  } = await User.findByIdAndUpdate(
     id,
     { balance: initialBalance },
     { new: true }
   );
 
   res.status(201).json({
-    status: "success",
+    status: "Created",
     code: 201,
-    data: newBalance,
+    data: {
+      user: {
+        id: userId,
+        email: userEmail,
+        balance: newBalance,
+      },
+    },
   });
 };
 

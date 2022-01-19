@@ -1,17 +1,18 @@
 const getAllInfo = require("./getAllInfo");
 const submitBalance = require("./submitBalance");
-const addTransaction = require("./addTransaction");
-const removeTransaction = require("./removeTransaction");
-const getAllDayTransacthios = require("./getAllDayTransacthios");
+const addOperation = require("./addOperation");
+const removeOperation = require("./removeOperation");
+const getOperationsByDay = require("./getOperationsByDay");
+
 const getIncomeExpenseByMonth = require('./getIncomeExpenseByMonth');
 // const getExpenseByMonth = require('./getExpenseByMonth');
 
 module.exports = {
   getAllInfo,
   submitBalance,
-  addTransaction,
-  removeTransaction,
-  getAllDayTransacthios,
+  addOperation,
+  removeOperation,
+  getOperationsByDay,
   getIncomeExpenseByMonth,
   // getExpenseByMonth,
 };
