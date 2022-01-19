@@ -14,8 +14,6 @@ const {
   userSendSecondEmail,
 } = require("../../controllers/users");
 
-const { operations: ctrl } = require("../../controllers");
-
 const {
   registrationValidator,
   loginValidator,
@@ -27,7 +25,6 @@ router.post("/login", loginValidator, ctrlWrapper(userLogin));
 router.get("/logout", auth, ctrlWrapper(userLogOut));
 router.get("/verify/:verificationToken", ctrlWrapper(userVerification));
 router.post("/verify", verificationValidator, ctrlWrapper(userSendSecondEmail));
-router.post("/balance", auth, ctrlWrapper(ctrl.submitBalance));
 
 // не нужные энд-поинты
 router.get("/current", auth, ctrlWrapper(userGetCurrent));
