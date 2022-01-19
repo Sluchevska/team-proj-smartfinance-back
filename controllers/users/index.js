@@ -5,7 +5,8 @@ const {userLogOut} = require('./userLogout')
 const {userDelete} = require('./userDelete')
 const {userAvatar} = require('./userAvatar')
 const {userVerification} = require('./userVerification')
-const {userSendSecondEmail} = require('./userSendSecondEmail')
+const { userSendSecondEmail } = require('./userSendSecondEmail')
+const { googleAuth, googleRedirect } = require('./google')
 
 module.exports = {
     userRegistration,
@@ -16,4 +17,6 @@ module.exports = {
     userAvatar,
     userVerification,
     userSendSecondEmail,
+    googleAuth,
+    googleRedirect,
   };
