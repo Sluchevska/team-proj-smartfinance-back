@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "2.5.0",
+    "version": "3.0.0",
     "title": "Smart finance",
     "description": "Swagger for team-proj-smartfinance",
     "license": {
@@ -177,6 +177,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserBalanceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized_401"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Get user balance",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBalanceResponse_GET"
                 }
               }
             }
@@ -598,6 +631,19 @@
           }
         }
       },
+      "AddBalanceRequest": {
+        "type": "object",
+        "required": [
+          "balance"
+        ],
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 15000
+          }
+        }
+      },
       "UserBalanceResponse": {
         "type": "object",
         "properties": {
@@ -638,16 +684,43 @@
           }
         }
       },
-      "AddBalanceRequest": {
+      "UserBalanceResponse_GET": {
         "type": "object",
-        "required": [
-          "balance"
-        ],
         "properties": {
-          "balance": {
-            "type": "number",
-            "description": "User's balance",
-            "example": 15000
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "User's id",
+                    "example": "61e341383cdcb3ac59535085"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  },
+                  "balance": {
+                    "type": "number",
+                    "description": "User's balance",
+                    "example": "15000"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -876,10 +949,15 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "name": {
+                    "year": {
                       "type": "string",
-                      "description": "Month name",
-                      "example": "Ноябрь"
+                      "description": "Year",
+                      "example": "2022"
+                    },
+                    "month": {
+                      "type": "string",
+                      "description": "Month",
+                      "example": "01"
                     },
                     "total": {
                       "type": "number",
@@ -890,28 +968,34 @@
                 },
                 "example": [
                   {
-                    "name": "Ноябрь",
-                    "total": 25500
+                    "year": "2022",
+                    "month": "01",
+                    "total": 17000
                   },
                   {
-                    "name": "Октябрь",
-                    "total": 25500
+                    "year": "2021",
+                    "month": "12",
+                    "total": 0
                   },
                   {
-                    "name": "Сентябрь",
-                    "total": 25500
+                    "year": "2021",
+                    "month": "11",
+                    "total": 0
                   },
                   {
-                    "name": "Август",
-                    "total": 20000
+                    "year": "2021",
+                    "month": "10",
+                    "total": 115000
                   },
                   {
-                    "name": "Июль",
-                    "total": 20000
+                    "year": "2021",
+                    "month": "09",
+                    "total": 0
                   },
                   {
-                    "name": "Июнь",
-                    "total": 18000
+                    "year": "2021",
+                    "month": "08",
+                    "total": 0
                   }
                 ]
               }
