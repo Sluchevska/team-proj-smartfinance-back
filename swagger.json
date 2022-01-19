@@ -148,10 +148,10 @@
         }
       }
     },
-    "/api/users/balance": {
+    "/api/operations/balance": {
       "post": {
         "tags": [
-          "Users"
+          "Operations"
         ],
         "summary": "Add balance on first login",
         "security": [
@@ -991,15 +991,33 @@
           "data": {
             "type": "object",
             "properties": {
-              "totalIncome": {
-                "type": "string",
-                "description": "Total income balance for the specified month and year",
-                "example": 49000
-              },
-              "totalExpenses": {
-                "type": "string",
-                "description": "Total balance of expenses for the specified month and year",
-                "example": 15049
+              "monthTotal": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "Operation types",
+                      "example": "income"
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Total income or expenses",
+                      "example": 35000
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "type": "income",
+                    "total": 57000
+                  },
+                  {
+                    "type": "expenses",
+                    "total": 15849
+                  }
+                ]
               },
               "CategoryIncome": {
                 "type": "array",

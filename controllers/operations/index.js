@@ -6,7 +6,6 @@ const getAllDayTransacthios = require("./getAllDayTransacthios");
 const getIncomeExpenseByMonth = require('./getIncomeExpenseByMonth');
 // const getExpenseByMonth = require('./getExpenseByMonth');
 
-
 module.exports = {
   getAllInfo,
   submitBalance,
