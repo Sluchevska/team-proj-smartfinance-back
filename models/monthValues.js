@@ -1,19 +1,23 @@
 const { Schema, model } = require('mongoose');
 
 const monthValuesSchema = new Schema({
-  month: {
-        type: Number
-      },
-  year: {
-    type: Number,
+  date: {
+    type: Date,
+    default: new Date(),
   },
-  income: {
-    type: Number,
+  category: {
+      type: String,
+      required: [true, "category is required"],
   },
-  expences: {
-    type: Number,
+  description: {
+    type: String,
+    required: true,
   },
-  total: {
+  sum: {
+      type: Number,
+      required: true,
+  },
+  isIncome: {
     type: Number,
   },
   owner:{
@@ -22,8 +26,17 @@ const monthValuesSchema = new Schema({
   }
 });
 
+// const joiTransactionSchema = Joi.object({
+//   date: Joi.date().required(),
+//   category: Joi.string().required(),
+//   description: Joi.string().required(),
+//   amount: Joi.number().required(),
+//   isIncome: Joi.boolean(),
+// });
+
 const MonthValues = model('MonthValues', monthValuesSchema)
 
 module.exports = {
-    MonthValues
+  MonthValues,
+  // joiTransactionSchema
 }

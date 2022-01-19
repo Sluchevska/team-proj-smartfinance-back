@@ -34,7 +34,7 @@ const userSchema = new Schema(
     },
     balance: {
       type: Number,
-      default: null,
+      default: 0,
     },
   },
   { versionKey: false, timestamps: true }
