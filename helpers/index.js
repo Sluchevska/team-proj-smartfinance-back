@@ -1,3 +1,7 @@
 const { sendEmail } = require('./sendEmail')
+const { tryCatchWrapper } = require('./tryCatchWrapper');
 
-module.exports = { sendEmail }
+module.exports = {
+    sendEmail,
+    tryCatchWrapper,
+}

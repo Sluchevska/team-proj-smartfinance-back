@@ -5,8 +5,11 @@ require('dotenv').config();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
+const path = require('path')
+
 const usersRouter = require('./routes/api/users');
 const operationsRouter = require('./routes/api/operations');
+const googleRouter = require('./routes/api/google')
 
 const app = express();
 
@@ -18,7 +21,12 @@ app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/operations', operationsRouter);
+app.use('/auth', googleRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use('/link', (req, res) => { 
+  res.sendFile(path.join(__dirname, './public/link.html'))
+})
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
