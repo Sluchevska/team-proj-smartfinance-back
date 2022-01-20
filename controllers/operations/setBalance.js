@@ -10,7 +10,13 @@ const setBalance = async (req, res) => {
     res.status(406).json({
       status: "Not Acceptable",
       code: 406,
-      data: { balance },
+      data: {
+        user: {
+          id: userId,
+          email: userEmail,
+          balance,
+        },
+      },
     });
 
     return;
