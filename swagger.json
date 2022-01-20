@@ -555,7 +555,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "example": "User with email user@example.com is already exist"
+            "example": "User with this email is already exist"
           }
         }
       },
