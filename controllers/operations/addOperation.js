@@ -1,11 +1,11 @@
-const { User } = require("../../models");
-const { Operation } = require("../../models");
+const { User } = require('../../models');
+const { Operation } = require('../../models');
 
 const addOperation = async (req, res) => {
   const { date, category, description, sum, type } = req.body;
   const { id } = req.user;
 
-  const [day, month, year] = date.split(".");
+  const [day, month, year] = date.split('.');
 
   const operation = {
     date,
@@ -18,7 +18,7 @@ const addOperation = async (req, res) => {
     sum,
   };
 
-  const { _id: operationId, owner } = await Operation.create({
+  const { _id: operationId } = await Operation.create({
     ...operation,
     owner: id,
   });
@@ -27,11 +27,11 @@ const addOperation = async (req, res) => {
   let newBalance;
 
   switch (type) {
-    case "income":
+    case 'income':
       newBalance = initialBalance + sum;
       break;
 
-    case "expenses":
+    case 'expenses':
       newBalance = initialBalance - sum;
       break;
 
@@ -41,7 +41,7 @@ const addOperation = async (req, res) => {
   await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true });
 
   res.status(201).json({
-    status: "Ok",
+    status: 'Ok',
     code: 201,
     data: {
       operation: {
@@ -51,7 +51,6 @@ const addOperation = async (req, res) => {
         description,
         sum,
         type,
-        owner,
       },
       balance: newBalance,
     },

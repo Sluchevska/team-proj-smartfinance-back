@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { User } = require('../../models');
 
 const setBalance = async (req, res) => {
   const { balance: initialBalance } = req.body;
@@ -8,12 +8,11 @@ const setBalance = async (req, res) => {
 
   if (balance !== null) {
     res.status(406).json({
-      status: "Not Acceptable",
+      status: 'Not Acceptable',
       code: 406,
       data: {
         user: {
-          id: userId,
-          email: userEmail,
+          email,
           balance,
         },
       },
@@ -22,23 +21,14 @@ const setBalance = async (req, res) => {
     return;
   }
 
-  const {
-    id: userId,
-    email: userEmail,
-    balance: newBalance,
-  } = await User.findByIdAndUpdate(
-    id,
-    { balance: initialBalance },
-    { new: true }
-  );
+  const { balance: newBalance } = await User.findByIdAndUpdate(id, { balance: initialBalance }, { new: true });
 
   res.status(201).json({
-    status: "Created",
+    status: 'Created',
     code: 201,
     data: {
       user: {
-        id: userId,
-        email: userEmail,
+        email,
         balance: newBalance,
       },
     },

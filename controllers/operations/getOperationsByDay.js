@@ -1,4 +1,4 @@
-const { Operation } = require("../../models");
+const { Operation } = require('../../models');
 
 getOperationsByDay = async (req, res) => {
   const { year, month, day, type } = req.query;
@@ -12,12 +12,13 @@ getOperationsByDay = async (req, res) => {
     day: 0,
     month: 0,
     year: 0,
+    owner: 0,
   };
 
   const operationsByDay = await Operation.find(filter, unnecessaryFields);
 
   res.status(201).json({
-    status: "Ok",
+    status: 'Ok',
     code: 201,
     data: {
       operations: {

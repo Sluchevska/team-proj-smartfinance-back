@@ -309,7 +309,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DedleteOperationResponse"
+                  "$ref": "#/components/schemas/DeleteOperationResponse"
                 }
               }
             }
@@ -534,11 +534,6 @@
               "user": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "User's id",
-                    "example": "61e341383cdcb3ac59535085"
-                  },
                   "name": {
                     "type": "string",
                     "description": "User's name",
@@ -602,11 +597,6 @@
               "user": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "User's id",
-                    "example": "61e341383cdcb3ac59535085"
-                  },
                   "name": {
                     "type": "string",
                     "description": "User's name",
@@ -669,11 +659,6 @@
               "user": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "User's id",
-                    "example": "61e341383cdcb3ac59535085"
-                  },
                   "email": {
                     "type": "string",
                     "description": "User's email",
@@ -706,6 +691,11 @@
           "data": {
             "type": "object",
             "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
               "balance": {
                 "type": "number",
                 "description": "User's balance",
@@ -734,11 +724,6 @@
               "user": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "User's id",
-                    "example": "61e341383cdcb3ac59535085"
-                  },
                   "email": {
                     "type": "string",
                     "description": "User's email",
@@ -840,11 +825,6 @@
                     "type": "string",
                     "description": "Type of operation",
                     "example": "expenses"
-                  },
-                  "owner": {
-                    "type": "ObjektId",
-                    "description": "User _id",
-                    "example": "61e2ee38deea6c86725e8ca2"
                   }
                 }
               },
@@ -857,7 +837,7 @@
           }
         }
       },
-      "DedleteOperationResponse": {
+      "DeleteOperationResponse": {
         "type": "object",
         "properties": {
           "message": {
@@ -924,11 +904,6 @@
                           "type": "string",
                           "description": "Type of operation",
                           "example": "income"
-                        },
-                        "owner": {
-                          "type": "ObjektId",
-                          "description": "User _id",
-                          "example": "61e2ee38deea6c86725e8ca2"
                         }
                       }
                     },
@@ -939,8 +914,7 @@
                         "category": "Доп. доход",
                         "description": "Премия",
                         "type": "income",
-                        "sum": 3000,
-                        "owner": "61e54529bbfd586b17904df4"
+                        "sum": 3000
                       },
                       {
                         "_id": "61e5ac8869af32474bd7d4l4",
@@ -948,8 +922,7 @@
                         "category": "ЗП",
                         "description": "зп жены",
                         "type": "income",
-                        "sum": 15000,
-                        "owner": "61e54529bbfd586b17904df4"
+                        "sum": 15000
                       }
                     ]
                   }
