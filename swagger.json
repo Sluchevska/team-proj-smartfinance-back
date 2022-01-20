@@ -60,14 +60,8 @@
             "content": {}
           },
           "409": {
-            "description": "Provided email already exists",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse_409"
-                }
-              }
-            }
+            "description": "Conflict",
+            "content": {}
           }
         }
       }
@@ -547,15 +541,6 @@
                 }
               }
             }
-          }
-        }
-      },
-      "RegistrationResponse_409": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "example": "User with email user@example.com is already exist"
           }
         }
       },
