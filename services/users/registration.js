@@ -7,7 +7,7 @@ const { sendEmail } = require('../../helpers');
 const registration = async (name, email, password) => {
   const userExist = await User.findOne({ email });
   if (userExist) {
-    throw new Conflict(`User with email ${email} is already exist`);
+    throw new Conflict();
   }
   const avatarURL = gravatar.url(email, { protocol: 'https', s: '100' });
   const verifyToken = uuidv4(email);
