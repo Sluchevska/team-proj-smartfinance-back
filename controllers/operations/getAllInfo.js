@@ -1,5 +1,5 @@
 const { Operation } = require('../../models');
-const { categoryIncome, categoryExpenses } = require('./category');
+const { categoryIncome, categoryExpenses } = require('../../data/category');
 
 const getAllInfo = async (req, res) => {
   const { _id } = req.user;
