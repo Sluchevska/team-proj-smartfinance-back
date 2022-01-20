@@ -9,7 +9,6 @@ const userLogin = async (req, res) => {
     code: 200,
     data: {
       user: {
-        id: user._id,
         name: user.name,
         email,
         token,

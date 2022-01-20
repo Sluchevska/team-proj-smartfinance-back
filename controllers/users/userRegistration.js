@@ -8,7 +8,6 @@ const userRegistration = async (req, res) => {
     code: 201,
     data: {
       user: {
-        id: user._id,
         name: user.name,
         email: user.email,
       },
