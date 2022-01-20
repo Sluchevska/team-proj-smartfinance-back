@@ -3,11 +3,7 @@
   "info": {
     "version": "3.0.0",
     "title": "Smart finance",
-    "description": "Swagger for team-proj-smartfinance",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "description": "Swagger for team-proj-smartfinance"
   },
   "consumes": [
     "application/json"
@@ -177,6 +173,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserBalanceResponse"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBalanceResponse_Error_406"
                 }
               }
             }
@@ -684,6 +690,31 @@
           }
         }
       },
+      "UserBalanceResponse_Error_406": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Not Acceptable"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 406
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": "24800"
+              }
+            }
+          }
+        }
+      },
       "UserBalanceResponse_GET": {
         "type": "object",
         "properties": {
@@ -832,6 +863,11 @@
           "message": {
             "type": "string",
             "example": "Operation deleted"
+          },
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": "42800"
           }
         }
       },
