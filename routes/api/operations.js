@@ -4,6 +4,7 @@ const { auth, ctrlWrapper } = require('../../middlewares');
 const { operations: ctrl } = require('../../controllers');
 
 router.post('/balance', auth, ctrlWrapper(ctrl.setBalance));
+router.get('/balance', auth, ctrlWrapper(ctrl.getBalance));
 router.get('/info', auth, ctrlWrapper(ctrl.getAllInfo));
 router.get('/bymonth', auth, ctrlWrapper(ctrl.getSixMonths));
 router.get('/byday', auth, ctrlWrapper(ctrl.getOperationsByDay));

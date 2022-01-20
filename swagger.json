@@ -386,7 +386,7 @@
         }
       }
     },
-    "/api/operations?{type}": {
+    "/api/operations/bymonth?{type}": {
       "get": {
         "tags": [
           "Operations"
