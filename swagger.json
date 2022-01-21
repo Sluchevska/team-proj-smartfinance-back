@@ -930,7 +930,7 @@
           "code": {
             "type": "integer",
             "description": "Response code",
-            "example": 201
+            "example": 200
           },
           "data": {
             "type": "object",

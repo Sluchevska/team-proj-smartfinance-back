@@ -17,9 +17,9 @@ getOperationsByDay = async (req, res) => {
 
   const operationsByDay = await Operation.find(filter, unnecessaryFields);
 
-  res.status(201).json({
+  res.json({
     status: 'Ok',
-    code: 201,
+    code: 200,
     data: {
       operations: {
         [type]: operationsByDay,
