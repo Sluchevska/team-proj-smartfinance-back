@@ -18,7 +18,7 @@ const addOperation = async (req, res) => {
     sum,
   };
 
-  const { _id: operationId } = await Operation.create({
+  const { _id: operationId, sum: sumOper } = await Operation.create({
     ...operation,
     owner: id,
   });
@@ -28,11 +28,11 @@ const addOperation = async (req, res) => {
 
   switch (type) {
     case 'income':
-      newBalance = initialBalance + sum;
+      newBalance = initialBalance + sumOper;
       break;
 
     case 'expenses':
-      newBalance = initialBalance - sum;
+      newBalance = initialBalance - sumOper;
       break;
 
     default:
@@ -49,7 +49,7 @@ const addOperation = async (req, res) => {
         date,
         category,
         description,
-        sum,
+        sum: sumOper,
         type,
       },
       balance: newBalance,

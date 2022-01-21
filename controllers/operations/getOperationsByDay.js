@@ -21,9 +21,8 @@ getOperationsByDay = async (req, res) => {
     status: 'Ok',
     code: 200,
     data: {
-      operations: {
-        [type]: operationsByDay,
-      },
+      type,
+      operations: operationsByDay,
     },
   });
 };
