@@ -606,13 +606,13 @@
                     "type": "string",
                     "description": "User's email",
                     "format": "email"
-                  },
-                  "token": {
-                    "type": "string",
-                    "description": "User's token",
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTM3YWIyMmY1NTA1OGJhNjUxOWNmNCIsImlhdCI6MTY0MjMwNTQzMn0.dtqdhjB-dVuJzmzfw4y_FlxxfFD7JSBkgyy9e7V"
                   }
                 }
+              },
+              "token": {
+                "type": "string",
+                "description": "User's token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTM3YWIyMmY1NTA1OGJhNjUxOWNmNCIsImlhdCI6MTY0MjMwNTQzMn0.dtqdhjB-dVuJzmzfw4y_FlxxfFD7JSBkgyy9e7V"
               }
             }
           }
