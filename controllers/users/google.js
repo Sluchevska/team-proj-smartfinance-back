@@ -46,9 +46,9 @@ const googleRedirect = async (req, res) => {
       Authorization: `Bearer ${tokenData.data.access_token}`,
     },
   })
-      return res.redirect(
-    `${process.env.FRONTEND_URL}?email=${userData.data.email}`,
-  )
+  //     return res.redirect(
+  //   `${process.env.FRONTEND_URL}?email=${userData.data.email}`,
+  // )
   const { id: verifyToken, name, email } = userData.data
   const { access_token: token } = tokenData.data
   const user = await User.findOne({ email })
