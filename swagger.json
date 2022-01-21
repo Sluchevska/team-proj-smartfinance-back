@@ -144,6 +144,34 @@
         }
       }
     },
+    "/api/users/current": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current user",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized / Email or password is wrong",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/operations/balance": {
       "post": {
         "tags": [
@@ -613,6 +641,46 @@
                 "type": "string",
                 "description": "User's token",
                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTM3YWIyMmY1NTA1OGJhNjUxOWNmNCIsImlhdCI6MTY0MjMwNTQzMn0.dtqdhjB-dVuJzmzfw4y_FlxxfFD7JSBkgyy9e7V"
+              }
+            }
+          }
+        }
+      },
+      "CurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "Ok"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response code",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "User's name",
+                    "example": "user"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  },
+                  "balance": {
+                    "type": "number",
+                    "description": "User's balance",
+                    "example": "25800"
+                  }
+                }
               }
             }
           }
