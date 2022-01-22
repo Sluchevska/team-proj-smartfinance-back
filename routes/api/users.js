@@ -1,6 +1,9 @@
 const express = require('express');
 const router = new express.Router();
 
+const { tryCatchWrapper } = require('../../helpers');
+const { googleAuth, googleRedirect } = require('../../controllers/users');
+
 const { auth, ctrlWrapper, upload } = require('../../middlewares');
 
 const {
@@ -22,6 +25,9 @@ router.get('/logout', auth, ctrlWrapper(userLogOut));
 router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
 router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
 router.get('/current', auth, ctrlWrapper(userGetCurrent));
+
+router.get("/google", tryCatchWrapper(googleAuth));
+router.get("/google-redirect", tryCatchWrapper(googleRedirect));
 
 router.delete('/:userId', auth, ctrlWrapper(userDelete));
 router.patch('/avatars', auth, upload.single('avatar'), ctrlWrapper(userAvatar));
