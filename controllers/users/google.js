@@ -63,7 +63,7 @@ const googleRedirect = async (req, res) => {
     };
     const token = jwt.sign(payload, JWT_SECRET);
     await User.findByIdAndUpdate(_id, { token });
-    return res.redirect(`${FRONTEND_URL}/google-redirect/?access_token=${token}`);
+    return res.redirect(`${FRONTEND_URL}?access_token=${token}`);
   }
   const { _id } = user;
   const payload = {
@@ -72,7 +72,7 @@ const googleRedirect = async (req, res) => {
   const token = jwt.sign(payload, JWT_SECRET);
   await User.findByIdAndUpdate(_id, { token });
 
-  return res.redirect(`${FRONTEND_URL}/google-redirect/?access_token=${token}`);
+  return res.redirect(`${FRONTEND_URL}?access_token=${token}`);
 };
 
 
