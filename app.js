@@ -9,7 +9,7 @@ const path = require('path')
 
 const usersRouter = require('./routes/api/users');
 const operationsRouter = require('./routes/api/operations');
-const googleRouter = require('./routes/api/google')
+// const googleRouter = require('./routes/api/google')
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/operations', operationsRouter);
-app.use('/auth', googleRouter);
+// app.use('/auth', googleRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/link', (req, res) => { 
