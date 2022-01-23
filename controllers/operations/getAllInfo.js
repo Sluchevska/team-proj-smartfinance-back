@@ -15,8 +15,8 @@ const getAllInfo = async (req, res) => {
     },
   ]);
 
-  let totlIncome = null;
-  let totlExpenses = null;
+  let totalIncome = null;
+  let totalExpenses = null;
 
   monthTotal.map((item) => {
     if (item.type === 'income') {
@@ -92,7 +92,7 @@ const getAllInfo = async (req, res) => {
   res.status(200).json({
     status: 'Ok',
     code: 200,
-    data: { totlIncome, totlExpenses, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses },
+    data: { totalIncome, totalExpenses, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses },
   });
 };
 

@@ -1084,12 +1084,12 @@
           "data": {
             "type": "object",
             "properties": {
-              "totlIncome": {
+              "totalIncome": {
                 "type": "number",
                 "description": "Total income",
                 "example": 45000
               },
-              "totlExpenses": {
+              "totalExpenses": {
                 "type": "number",
                 "description": "Total expenses",
                 "example": 37000
