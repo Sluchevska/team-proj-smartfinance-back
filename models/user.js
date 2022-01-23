@@ -9,7 +9,6 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
     },
     email: {
       type: String,
@@ -22,7 +21,6 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      required: true,
     },
     verify: {
       type: Boolean,
@@ -55,7 +53,7 @@ const registrationSchema = Joi.object({
       minDomainSegments: 2,
     })
     .required(),
-  password: Joi.string().min(5).max(15).required(),
+  password: Joi.string().min(5).max(15),
 });
 
 const loginSchema = Joi.object({
@@ -64,7 +62,7 @@ const loginSchema = Joi.object({
       minDomainSegments: 2,
     })
     .required(),
-  password: Joi.string().min(5).max(15).required(),
+  password: Joi.string().min(5).max(15),
 });
 
 const verificationSchema = Joi.object({
