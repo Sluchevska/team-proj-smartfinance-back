@@ -20,10 +20,10 @@ const getAllInfo = async (req, res) => {
 
   monthTotal.map((item) => {
     if (item.type === 'income') {
-      totlIncome = item.total;
+      totalIncome = item.total;
     }
     if (item.type === 'expenses') {
-      totlExpenses = item.total;
+      totalExpenses = item.total;
     }
   });
 
