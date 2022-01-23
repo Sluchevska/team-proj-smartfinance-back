@@ -1084,33 +1084,15 @@
           "data": {
             "type": "object",
             "properties": {
-              "monthTotal": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "Operation types",
-                      "example": "income"
-                    },
-                    "total": {
-                      "type": "number",
-                      "description": "Total income or expenses",
-                      "example": 35000
-                    }
-                  }
-                },
-                "example": [
-                  {
-                    "type": "income",
-                    "total": 57000
-                  },
-                  {
-                    "type": "expenses",
-                    "total": 15849
-                  }
-                ]
+              "totlIncome": {
+                "type": "number",
+                "description": "Total income",
+                "example": 45000
+              },
+              "totlExpenses": {
+                "type": "number",
+                "description": "Total expenses",
+                "example": 37000
               },
               "CategoryIncome": {
                 "type": "array",

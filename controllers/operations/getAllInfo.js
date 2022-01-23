@@ -10,13 +10,24 @@ const getAllInfo = async (req, res) => {
   const monthTotal = await Operation.aggregate([
     { $match: filter },
     { $group: { _id: { type: '$type' }, total: { $sum: '$sum' } } },
-    { $sort: { _id: -1 } },
     {
       $project: { _id: 0, type: '$_id.type', total: '$total' },
     },
   ]);
 
-  const CategoryIncome = await Operation.aggregate([
+  let totlIncome = null;
+  let totlExpenses = null;
+
+  monthTotal.map((item) => {
+    if (item.type === 'income') {
+      totlIncome = item.total;
+    }
+    if (item.type === 'expenses') {
+      totlExpenses = item.total;
+    }
+  });
+
+  const arrayCategoryIncome = await Operation.aggregate([
     { $match: { ...filter, type: 'income' } },
     { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
     { $sort: { total: -1 } },
@@ -25,7 +36,13 @@ const getAllInfo = async (req, res) => {
     },
   ]);
 
-  const CategoryExpenses = await Operation.aggregate([
+  const CategoryIncome = categoryIncome.map((categoryFromArr) => {
+    const categoryIndex = arrayCategoryIncome.findIndex((item) => item.category === categoryFromArr);
+    if (categoryIndex === -1) return { category: categoryFromArr, total: 0 };
+    return arrayCategoryIncome[categoryIndex];
+  });
+
+  const arrayCategoryExpenses = await Operation.aggregate([
     { $match: { ...filter, type: 'expenses' } },
     { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
     { $sort: { total: -1 } },
@@ -33,6 +50,12 @@ const getAllInfo = async (req, res) => {
       $project: { _id: 0, category: '$_id.category', total: '$total' },
     },
   ]);
+
+  const CategoryExpenses = categoryExpenses.map((categoryFromArr) => {
+    const categoryIndex = arrayCategoryExpenses.findIndex((item) => item.category === categoryFromArr);
+    if (categoryIndex === -1) return { category: categoryFromArr, total: 0 };
+    return arrayCategoryExpenses[categoryIndex];
+  });
 
   const arrPromisesDescriptionIncome = categoryIncome.map(async (category) => {
     const descriptionData = await Operation.aggregate([
@@ -69,7 +92,7 @@ const getAllInfo = async (req, res) => {
   res.status(200).json({
     status: 'Ok',
     code: 200,
-    data: { monthTotal, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses },
+    data: { totlIncome, totlExpenses, CategoryIncome, CategoryExpenses, DescriptionIncome, DescriptionExpenses },
   });
 };
 
