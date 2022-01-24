@@ -44,31 +44,34 @@ const googleRedirect = async (req, res) => {
     },
   });
 
-  const { name, email } = userData.data;
+  const { id, name, email } = userData.data;
   const user = await User.findOne({ email });
   if (!user) {
+    const hashPasword = bcrypt.hashSync(id, bcrypt.genSaltSync(10));
     const userGoogle = await User.create({
-      email,
-      name,
+      token: null,
+      email: email,
+      name: name,
+      password: hashPasword,
       verify: true,
+      verifyToken: null,
     });
     const { _id } = userGoogle;
     const payload = {
-      id: _id,
+      _id,
     };
     const token = jwt.sign(payload, JWT_SECRET);
     await User.findByIdAndUpdate(_id, { token });
-    return res.redirect(`${FRONTEND_URL}/home?access_token=${token}`);
+    return res.redirect(`${FRONTEND_URL}?access_token=${token}`);
   }
-
   const { _id } = user;
   const payload = {
-    id: _id,
+    _id,
   };
   const token = jwt.sign(payload, JWT_SECRET);
   await User.findByIdAndUpdate(_id, { token });
 
-  return res.redirect(`${FRONTEND_URL}/home?access_token=${token}`);
+  return res.redirect(`${FRONTEND_URL}?access_token=${token}`);
 };
 
 module.exports = {
