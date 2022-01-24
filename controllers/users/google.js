@@ -10,10 +10,9 @@ const googleAuth = async (req, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
     redirect_uri: `${BASE_URL}/api/users/google-redirect`,
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/userinfo.profile',
-    ].join(' '),
+    scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'].join(
+      ' '
+    ),
     response_type: 'code',
     access_type: 'offline',
     prompt: 'consent',
@@ -65,6 +64,7 @@ const googleRedirect = async (req, res) => {
     await User.findByIdAndUpdate(_id, { token });
     return res.redirect(`${FRONTEND_URL}?access_token=${token}`);
   }
+
   const { _id } = user;
   const payload = {
     _id,
@@ -75,9 +75,7 @@ const googleRedirect = async (req, res) => {
   return res.redirect(`${FRONTEND_URL}?access_token=${token}`);
 };
 
-
 module.exports = {
   googleAuth,
-  googleRedirect
-
-}
+  googleRedirect,
+};
