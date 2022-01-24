@@ -44,21 +44,17 @@ const googleRedirect = async (req, res) => {
     },
   });
 
-  const { id, name, email } = userData.data;
+  const { name, email } = userData.data;
   const user = await User.findOne({ email });
   if (!user) {
-    const hashPasword = bcrypt.hashSync(id, bcrypt.genSaltSync(10));
+    // const hashPasword = bcrypt.hashSync(id, bcrypt.genSaltSync(10));
     const userGoogle = await User.create({
-      token: null,
       email: email,
       name: name,
-      password: hashPasword,
-      verify: true,
-      verifyToken: null,
     });
     const { _id } = userGoogle;
     const payload = {
-      _id,
+      id: _id,
     };
     const token = jwt.sign(payload, JWT_SECRET);
     await User.findByIdAndUpdate(_id, { token });
@@ -67,7 +63,7 @@ const googleRedirect = async (req, res) => {
 
   const { _id } = user;
   const payload = {
-    _id,
+    id: _id,
   };
   const token = jwt.sign(payload, JWT_SECRET);
   await User.findByIdAndUpdate(_id, { token });
