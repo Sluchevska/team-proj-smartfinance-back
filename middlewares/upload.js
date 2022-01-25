@@ -2,31 +2,28 @@ const multer = require('multer');
 const path = require('path');
 
 const tempDir = path.join(__dirname, '../', 'temp');
-const MIME_TYPE_MAP = {
-  'image/png': 'png',
-  'image/jpeg': 'jpg',
-  'image/jpg': 'jpg',
-  'file/psd': 'psd', // i got a problem with this MIME TYPE
-};
-const multerConfig = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const isValid = MIME_TYPE_MAP[file.mimetype];
-    let error = new Error('Only pictures are supported! Wrong type of file');
-    if (isValid) {
-      error = null;
-    }
-    cb(error, tempDir);
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) {
+    cb(null, tempDir);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
-  limits: {
-    fileSize: 2048,
-  },
 });
 
+const types = ['image/png', 'image/jpeg', 'image/jpg'];
+const fileFilter = (req, file, cb) {
+  if (types.includes(file.mimetype)){
+    cb(null, true)
+  } else{
+    cb(null,false)
+  }
+
+}
+
 const upload = multer({
-  storage: multerConfig,
+  storage, fileFilter
 });
 
 module.exports = upload;
