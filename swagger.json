@@ -676,6 +676,11 @@
                     "format": "email"
                   }
                 }
+              },
+              "token": {
+                "type": "string",
+                "description": "User's token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZTU0NTI5YmJZDU4NmIxNzkwJmMSIsImlhdCI6MTY0MzA3MDU5MH0.8VJ4kZapNuvSQh5rAISweyM-5pyUYWXt-lCh1Jptc"
               }
             }
           }
