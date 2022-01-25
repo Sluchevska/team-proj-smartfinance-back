@@ -5,8 +5,7 @@ const { NotFound } = require('http-errors');
 const verificationByToken = async (verifyToken) => {
   const user = await User.findOne({ verifyToken });
   if (!user) {
-    res.redirect(`https://team-proj-smartfinance.netlify.app`);
-    // throw new NotFound('User is verificated or does not exist');
+    throw new NotFound('User is verificated or does not exist');
   }
   const token = jwt.sign(
     {
@@ -14,7 +13,13 @@ const verificationByToken = async (verifyToken) => {
     },
     process.env.JWT_SECRET
   );
-  const result = await User.findOneAndUpdate({ _id: user._id }, { $set: { verify: true, verifyToken: null, token } });
+  const result = await User.findOneAndUpdate(
+    { _id: user._id },
+    { $set: { verify: true, verifyToken: null, token } },
+    {
+      new: true,
+    }
+  );
   return result;
 };
 
