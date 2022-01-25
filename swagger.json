@@ -59,6 +59,16 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse_401"
+                }
+              }
+            }
+          },
           "409": {
             "description": "Provided email already exists",
             "content": {
@@ -578,12 +588,21 @@
           }
         }
       },
+      "RegistrationResponse_401": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Your account already exists. A follow-up email has been sent to you to verify your email."
+          }
+        }
+      },
       "RegistrationResponse_409": {
         "type": "object",
         "properties": {
           "message": {
             "type": "string",
-            "example": "User with this email is already exist"
+            "example": "User with this email is already exist."
           }
         }
       },
