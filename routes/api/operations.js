@@ -13,11 +13,7 @@ router.get('/byday', auth, ctrlWrapper(ctrl.getOperationsByDay));
 router.post('/', auth, ctrlWrapper(ctrl.addOperation));
 router.delete('/:operationId', auth, ctrlWrapper(ctrl.removeOperation));
 
-router.get("/google", tryCatchWrapper(googleAuth));
-router.get("/google-redirect", tryCatchWrapper(googleRedirect));
-
-
-router.get('/getExpenseByMonth', auth, ctrlWrapper(ctrl.getExpenseByMonth));
-router.get('/', auth, ctrlWrapper(ctrl.getIncomeExpenseByMonth));
+router.get('/google', tryCatchWrapper(googleAuth));
+router.get('/google-redirect', tryCatchWrapper(googleRedirect));
 
 module.exports = router;
