@@ -26,8 +26,6 @@ router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
 router.get('/google', tryCatchWrapper(googleAuth));
 router.get('/google-redirect', tryCatchWrapper(googleRedirect));
 
-
 router.post('/avatars', upload.single('avatar'), ctrlWrapper(userAvatar));
-
 
 module.exports = router;
