@@ -1,7 +1,7 @@
-const { Operation} = require('./operation');
+const { Operation } = require('./operation');
 const { User } = require('./user');
 
 module.exports = {
   Operation,
-  User
+  User,
 };
