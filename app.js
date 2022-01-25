@@ -23,8 +23,6 @@ app.use('/api/operations', operationsRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/avatars', express.static(path.join(__dirname, 'avatars')));
-
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 });
