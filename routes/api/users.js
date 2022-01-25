@@ -30,6 +30,6 @@ router.get('/google-redirect', tryCatchWrapper(googleRedirect));
 
 router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
 router.delete('/:userId', auth, ctrlWrapper(userDelete));
-router.post('/avatars', upload.single('avatar'), ctrlWrapper(userAvatar));
+router.post('/avatar', upload.single('avatar'), ctrlWrapper(userAvatar));
 
 module.exports = router;
