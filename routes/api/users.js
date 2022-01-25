@@ -22,13 +22,13 @@ const { registrationValidator, loginValidator, verificationValidator } = require
 router.post('/register', registrationValidator, ctrlWrapper(userRegistration));
 router.post('/login', loginValidator, ctrlWrapper(userLogin));
 router.get('/logout', auth, ctrlWrapper(userLogOut));
-router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
-router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
 router.get('/current', auth, ctrlWrapper(userGetCurrent));
+router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
 
-router.get("/google", tryCatchWrapper(googleAuth));
-router.get("/google-redirect", tryCatchWrapper(googleRedirect));
+router.get('/google', tryCatchWrapper(googleAuth));
+router.get('/google-redirect', tryCatchWrapper(googleRedirect));
 
+router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
 router.delete('/:userId', auth, ctrlWrapper(userDelete));
 router.patch('/avatars', auth, upload.single('avatar'), ctrlWrapper(userAvatar));
 

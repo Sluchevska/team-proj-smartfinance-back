@@ -27,14 +27,20 @@ const getAllInfo = async (req, res) => {
     }
   });
 
-  const arrayCategoryIncome = await Operation.aggregate([
-    { $match: { ...filter, type: 'income' } },
-    { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
-    { $sort: { total: -1 } },
-    {
-      $project: { _id: 0, category: '$_id.category', total: '$total' },
-    },
-  ]);
+  const getArrayCategoryDataByType = async (type) => {
+    const result = await Operation.aggregate([
+      { $match: { ...filter, type } },
+      { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
+      { $sort: { total: -1 } },
+      {
+        $project: { _id: 0, category: '$_id.category', total: '$total' },
+      },
+    ]);
+    return result;
+  };
+
+  let arrayCategoryIncome = null;
+  await getArrayCategoryDataByType('income').then((data) => (arrayCategoryIncome = data));
 
   const CategoryIncome = categoryIncome.map((categoryFromArr) => {
     const categoryIndex = arrayCategoryIncome.findIndex((item) => item.category === categoryFromArr);
@@ -42,14 +48,8 @@ const getAllInfo = async (req, res) => {
     return arrayCategoryIncome[categoryIndex];
   });
 
-  const arrayCategoryExpenses = await Operation.aggregate([
-    { $match: { ...filter, type: 'expenses' } },
-    { $group: { _id: { category: '$category' }, total: { $sum: '$sum' } } },
-    { $sort: { total: -1 } },
-    {
-      $project: { _id: 0, category: '$_id.category', total: '$total' },
-    },
-  ]);
+  let arrayCategoryExpenses = null;
+  await getArrayCategoryDataByType('expenses').then((data) => (arrayCategoryExpenses = data));
 
   const CategoryExpenses = categoryExpenses.map((categoryFromArr) => {
     const categoryIndex = arrayCategoryExpenses.findIndex((item) => item.category === categoryFromArr);
