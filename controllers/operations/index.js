@@ -6,9 +6,6 @@ const addOperation = require('./addOperation');
 const removeOperation = require('./removeOperation');
 const getOperationsByDay = require('./getOperationsByDay');
 
-const getIncomeExpenseByMonth = require('./getIncomeExpenseByMonth');
-// const getExpenseByMonth = require('./getExpenseByMonth');
-
 module.exports = {
   getAllInfo,
   getSixMonths,
@@ -17,6 +14,4 @@ module.exports = {
   addOperation,
   removeOperation,
   getOperationsByDay,
-  getIncomeExpenseByMonth,
-  // getExpenseByMonth,
 };

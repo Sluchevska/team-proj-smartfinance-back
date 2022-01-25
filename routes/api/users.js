@@ -11,10 +11,8 @@ const {
   userLogin,
   userGetCurrent,
   userLogOut,
-  userDelete,
   userAvatar,
   userVerification,
-  userSendSecondEmail,
 } = require('../../controllers/users');
 
 const { registrationValidator, loginValidator, verificationValidator } = require('../../middlewares/validation');
@@ -28,8 +26,8 @@ router.get('/verify/:verificationToken', ctrlWrapper(userVerification));
 router.get('/google', tryCatchWrapper(googleAuth));
 router.get('/google-redirect', tryCatchWrapper(googleRedirect));
 
-router.post('/verify', verificationValidator, ctrlWrapper(userSendSecondEmail));
-router.delete('/:userId', auth, ctrlWrapper(userDelete));
-router.post('/avatar', upload.single('avatar'), ctrlWrapper(userAvatar));
+
+router.post('/avatars', upload.single('avatar'), ctrlWrapper(userAvatar));
+
 
 module.exports = router;
